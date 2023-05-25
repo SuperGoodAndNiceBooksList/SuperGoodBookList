@@ -1,9 +1,12 @@
 import React, { useContext, ReactElement } from "react";
 import { useState, useEffect } from "react";
-import { BookDataBooksApiResponse, BookDataBooksResponse } from "./models";
+import { BookDataBooksApiResponse, BookDataBooksResponse, BookDataProps } from "./models";
 import Image from "next/image";
+import fetch from "cross-fetch";
 
-const BookData = (isbn: string) => {
+("use-client");
+
+const BookData = ({isbn}: BookDataProps) => {
   const [bookData, setBookData] = useState<BookDataBooksResponse>();
 
   // isbn format should be "ISBN:0000000000"
@@ -11,8 +14,10 @@ const BookData = (isbn: string) => {
   const url: string = `https://openlibrary.org/api/books?bibkeys=${isbn}&jscmd=data&format=json`;
 
   const retrieve = async () => {
-    const res = await fetch(url);
+    const res: Response = await fetch(url) as Response;
     const data: BookDataBooksApiResponse = await res.json();
+    console.log(data);
+    console.log(data[isbn])
     setBookData(data[isbn]);
   };
 
@@ -25,17 +30,19 @@ const BookData = (isbn: string) => {
   return (
     <>
       <article className="flex">
-        <title>{bookData.details.title}</title>
+        <title>{bookData.title}</title>
+        <p>{bookData.by_statement}</p>
         <Image
-          src={bookData.thumbnail_url}
+          src={bookData.cover.medium}
           alt="Book Cover Preview"
           className=""
+          height="100"
+          width="100"
         />
-        <desc>{bookData.details.description}</desc>
         <div className="">
           <p className="">Subjects:</p>
-          {bookData.details.subjects.map((subject, idx) => (
-            <p>{subject}</p>
+          {bookData.subjects.map((subject) => (
+            <p>{subject.name}</p>
           ))}
         </div>
       </article>
@@ -43,4 +50,4 @@ const BookData = (isbn: string) => {
   );
 };
 
-export default BookData;
+export { BookData };

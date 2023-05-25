@@ -1,75 +1,60 @@
+export interface BookDataProps {
+  isbn: string;
+}
+
 export interface BookDataBooksApiResponse {
   [bib_key: string]: BookDataBooksResponse;
 }
 
 export interface BookDataBooksResponse {
-  info_url: string;
-  bib_key: string;
-  preview_url: string;
-  thumbnail_url: string;
-  preview: string;
-  details: Details;
-}
-
-export interface Details {
-  number_of_pages: number;
-  table_of_contents: Chapter[];
-  weight: string;
-  covers: number[];
-  lc_classifications: string[];
-  latest_revision: number;
-  source_records: string[];
-  title: string;
-  languages: Type[];
-  subjects: string[];
-  publish_country: string;
-  by_statement: string;
-  oclc_numbers: string[];
-  type: Type;
-  physical_dimensions: string;
-  revision: number;
-  publishers: string[];
-  description: string;
-  physical_format: string;
-  last_modified: {
-    type: Type;
-    value: Value;
-  };
+  url: string;
   key: string;
+  title: string;
   authors: Author[];
-  publish_places: string[];
+  number_of_pages: number;
   pagination: string;
-  created: {
-    type: Type;
-    value: Value;
-  };
-  lccn: string[];
-  notes: string;
+  weight: string;
+  by_statement: string;
   identifiers: {
     [website: string]: string[];
   };
-  isbn_13: string[];
-  dewey_decimal_class: string[];
-  isbn_10: string[]
+  classifications: {
+    [classification: string]: string[];
+  };
+  publishers: string[];
+  publish_places: string[];
   publish_date: string;
-  works: Type[];
+  subjects: Subject[];
+  notes: string;
+  table_of_contents: Chapter[];
+  links: Link[];
+  cover: Cover;
+}
+
+export interface Cover {
+  small: string;
+  medium: string;
+  large: string;
 }
 
 export interface Chapter {
   title: string;
-  type: Type;
+  label: string;
   level: number;
+  pagenum: string;
 }
 
 export interface Author {
+  url: string;
   name: string;
-  key: string;
 }
 
-export interface Type {
-  key: string;
+export interface Subject {
+  name: string;
+  url: string;
 }
 
-export interface Value {
-  value: string;
+export interface Link {
+  title: string;
+  url: string;
 }
