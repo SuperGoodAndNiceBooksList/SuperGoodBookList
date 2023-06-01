@@ -6,19 +6,20 @@ import fetch from "cross-fetch";
 
 ("use-client");
 
-const BookData = ({isbn}: BookDataProps) => {
+const BookData = ({bibkey}: BookDataProps) => {
   const [bookData, setBookData] = useState<BookDataBooksResponse>();
 
-  // isbn format should be "ISBN:0000000000"
+  // isbn format should be "ISBN:#########" ex: ISBN:9780980200447
+  // olid should be "OLID:OL######"" ex: OLID:OL22853304M
 
-  const url: string = `https://openlibrary.org/api/books?bibkeys=${isbn}&jscmd=data&format=json`;
+  const url: string = `https://openlibrary.org/api/books?bibkeys=${bibkey}&jscmd=data&format=json`;
 
   const retrieve = async () => {
     const res: Response = await fetch(url) as Response;
     const data: BookDataBooksApiResponse = await res.json();
     console.log(data);
-    console.log(data[isbn])
-    setBookData(data[isbn]);
+    console.log(data[bibkey])
+    setBookData(data[bibkey]);
   };
 
   useEffect(() => {
