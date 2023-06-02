@@ -1,5 +1,5 @@
 export interface BookDataProps {
-  isbn: string;
+  bibkey: string;
 }
 
 export interface BookDataBooksApiResponse {
