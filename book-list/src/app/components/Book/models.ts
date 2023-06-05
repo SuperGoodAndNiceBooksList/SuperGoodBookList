@@ -4,6 +4,10 @@ export interface BookDataProps {
   subjectsLimit?: number;
 }
 
+export interface BookDataSearchProps{
+  search: string;
+}
+
 export interface BookDataBooksApiResponse {
   [bib_key: string]: BookDataBooksResponse;
 }
@@ -60,6 +64,25 @@ export interface Link {
   title: string;
   url: string;
 }
+
+
+export interface BookDataSearchResponse {
+  cover_i: number;
+  has_fulltext: boolean;
+  title: string;
+  author_name: string[];
+  first_publish_year: number;
+  key: string;
+  seed: string[];
+  ia: string[];
+  author_key: string[];
+  public_scan_b: boolean;
+}
+
+export interface BookDataSearchApiResponse {
+  start: number;
+  num_found: number;
+  docs: BookDataSearchResponse[];
 
 export interface BookISBN {
   bibkey: string,
