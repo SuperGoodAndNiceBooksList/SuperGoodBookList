@@ -65,6 +65,7 @@ export interface Link {
   url: string;
 }
 
+
 export interface BookDataSearchResponse {
   cover_i: number;
   has_fulltext: boolean;
@@ -82,4 +83,7 @@ export interface BookDataSearchApiResponse {
   start: number;
   num_found: number;
   docs: BookDataSearchResponse[];
+
+export interface BookISBN {
+  bibkey: string,
 }
