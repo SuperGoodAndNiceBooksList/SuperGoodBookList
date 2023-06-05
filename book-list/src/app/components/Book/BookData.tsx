@@ -44,11 +44,11 @@ const BookData = ({bibkey, crop}: BookDataProps) => {
       return (
         <div className="">
         <p className="">Subjects:</p>
+        <ul>
         { bookData?.subjects.splice(0,subjectsLimit).map((subject,i) => (
-          <ul>
             <li key={i}>{subject.name}</li>
-          </ul>
         ))}
+        </ul>
         </div>
       );
     }
@@ -65,7 +65,6 @@ const BookData = ({bibkey, crop}: BookDataProps) => {
             src={loading ? "/loading.gif" : bookData.cover.medium}
             alt="Book Cover Preview"
             priority={true}
-            placeholder={blur}
             className=""
             height="100"
             width="100"
