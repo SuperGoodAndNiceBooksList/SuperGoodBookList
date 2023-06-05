@@ -64,15 +64,10 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
       width: 100,
     }
     
-    if (!loading && crop && bookData) {
-      imageProps.imageSrc = bookData.cover.medium;
-      imageProps.height = 150;
-    }
-    
-    if (!loading && !crop && bookData) {
-      imageProps.imageSrc = bookData?.cover.large;
-      imageProps.height = 800;
-      imageProps.width = 500;
+    if(!loading && bookData) {
+      imageProps.imageSrc = (crop) ? bookData.cover.medium : bookData.cover.large;
+      imageProps.height = (crop) ? 150 : 800;
+      imageProps.width = (crop) ? imageProps.width : 500;
     }
     
     return(
