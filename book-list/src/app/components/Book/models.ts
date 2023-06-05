@@ -1,5 +1,7 @@
 export interface BookDataProps {
   bibkey: string;
+  crop?: boolean;
+  subjectsLimit?: number;
 }
 
 export interface BookDataBooksApiResponse {
@@ -57,4 +59,8 @@ export interface Subject {
 export interface Link {
   title: string;
   url: string;
+}
+
+export interface BookISBN {
+  bibkey: string,
 }
