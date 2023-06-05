@@ -1,6 +1,7 @@
 export interface BookDataProps {
   bibkey: string;
   crop?: boolean;
+  subjectsLimit?: number;
 }
 
 export interface BookDataBooksApiResponse {

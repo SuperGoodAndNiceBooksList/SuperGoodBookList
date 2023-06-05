@@ -8,5 +8,5 @@ export default function Page() {
     if (typeof router.query.bibkey === "string"){
         bibkey=router.query.bibkey;
     }
-    return <BookData bibkey={bibkey}/>
+    return <BookData bibkey={bibkey} subjectsLimit={20} />
 }
