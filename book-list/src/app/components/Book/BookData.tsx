@@ -87,15 +87,30 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
     );
   }
 
+  const TitleAndCover = () => {
+    if (!crop) {
+      return (
+        <>
+        <Title />
+        <BookCover />
+        </>
+      );
+    } else {
+      return (
+        <Link href={"/book"+bookData?.key.substring(6)} >
+          <Title/>
+          <BookCover />
+        </Link>
+      );
+    }
+  }
+
   if (bookData === undefined) return null;
   //TODO: add tailwind styling to book details
   return (
     <>
       <article className="flex">
-        <Link href={"/book"+bookData?.key.substring(6)} >
-          <Title/>
-          <BookCover />
-        </Link>
+        <TitleAndCover />
        { showDetails() }
       </article>
     </>
