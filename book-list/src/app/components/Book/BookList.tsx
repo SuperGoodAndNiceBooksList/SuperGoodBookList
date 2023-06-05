@@ -1,6 +1,5 @@
 import React, { useContext, ReactElement } from "react";
 import { useState, useEffect } from "react";
-import fetch from "cross-fetch";
 import { BookDataSearchProps, BookDataSearchApiResponse, BookDataSearchResponse } from "./models";
 import { BookData } from "./BookData";
 

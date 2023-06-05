@@ -2,7 +2,6 @@ import React, { useContext, ReactElement } from "react";
 import { useState, useEffect } from "react";
 import { BookDataBooksApiResponse, BookDataBooksResponse, BookDataProps } from "./models";
 import Image from "next/image";
-import fetch from "cross-fetch";
 
 ("use-client");
 
