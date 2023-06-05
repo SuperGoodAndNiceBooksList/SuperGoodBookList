@@ -26,7 +26,7 @@ const BookList = ({search}: BookDataSearchProps) => {
       return (
         <>
         {works.map((book) => {
-            const olid = "OLID:" + book?.key.split("/")[2];
+            const olid = "OLID:" + book?.seed[0].split("/")[2];
             <BookData bibkey={olid}/>
         })}
         </>

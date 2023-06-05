@@ -70,6 +70,7 @@ export interface BookDataSearchResponse {
   author_name: string[];
   first_publish_year: number;
   key: string;
+  seed: string[];
   ia: string[];
   author_key: string[];
   public_scan_b: boolean;
