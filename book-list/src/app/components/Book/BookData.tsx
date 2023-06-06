@@ -30,7 +30,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
 
   const Title = ():ReactElement => {
     if(loading){
-      return (<h3>"Loading..."</h3>);
+      return (<h3>Loading...</h3>);
     }
     return (<>
       <h3>{bookData?.title}</h3>

@@ -83,6 +83,7 @@ export interface BookDataSearchApiResponse {
   start: number;
   num_found: number;
   docs: BookDataSearchResponse[];
+}
 
 export interface BookISBN {
   bibkey: string,
