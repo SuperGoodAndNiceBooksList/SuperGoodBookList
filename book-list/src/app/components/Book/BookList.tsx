@@ -14,7 +14,6 @@ const BookList = ({search}: BookDataSearchProps) => {
     const retrieve = async () => {
         const res: Response = await fetch(url) as Response;
         const data: BookDataSearchApiResponse = await res.json();
-        console.log(data?.docs);
         setWorks(data?.docs);
       };
     
