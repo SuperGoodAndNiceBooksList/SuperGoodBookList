@@ -2,6 +2,7 @@ import React, { useContext, ReactElement } from "react";
 import { useState, useEffect } from "react";
 import { BookDataSearchProps, BookDataSearchApiResponse, BookDataSearchResponse } from "./models";
 import { BookData } from "./BookData";
+import fetch from "cross-fetch";
 
 ("use-client");
 
@@ -13,7 +14,6 @@ const BookList = ({search}: BookDataSearchProps) => {
     const retrieve = async () => {
         const res: Response = await fetch(url) as Response;
         const data: BookDataSearchApiResponse = await res.json();
-
         setWorks(data?.docs);
       };
     
@@ -25,9 +25,9 @@ const BookList = ({search}: BookDataSearchProps) => {
 
       return (
         <>
-        {works.map((book) => {
+        {works.map((book, idx) => {
             const olid = book?.seed[0]?.split("/")[2];
-            (olid) ? <BookData bibkey={"OLID:" + olid}/> : null
+            return (olid) ? <BookData key={idx} bibkey={"OLID:" + olid} crop={true}/> : null;
         })}
         </>
       );

@@ -1,5 +1,6 @@
 import { BookData } from "@/app/components/Book/BookData"
 import { BookISBN } from "../app/components/Book/models"
+import { BookList } from "@/app/components/Book/BookList"
 
 
 export default function Home() {
@@ -14,8 +15,11 @@ export default function Home() {
   ]
 
   return (
+    <>
     <div>
     {books.map((book,i) => <BookData bibkey={book.bibkey} crop={true} key={i} />)}
     </div>
+    <BookList search={"broccoli"} />
+    </>
   )
 }
