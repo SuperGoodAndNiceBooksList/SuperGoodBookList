@@ -65,7 +65,8 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
     }
     
     if(!loading && bookData) {
-      imageProps.imageSrc = (crop) ? bookData.cover.medium : bookData.cover.large;
+      //temp fix for books without covers
+      imageProps.imageSrc = (crop) ? bookData.cover?.medium : bookData.cover?.large;
       imageProps.height = (crop) ? 150 : 800;
       imageProps.width = (crop) ? imageProps.width : 500;
     }

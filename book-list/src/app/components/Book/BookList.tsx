@@ -14,7 +14,7 @@ const BookList = ({search}: BookDataSearchProps) => {
     const retrieve = async () => {
         const res: Response = await fetch(url) as Response;
         const data: BookDataSearchApiResponse = await res.json();
-
+        console.log(data?.docs);
         setWorks(data?.docs);
       };
     
@@ -26,9 +26,9 @@ const BookList = ({search}: BookDataSearchProps) => {
 
       return (
         <>
-        {works.map((book) => {
+        {works.map((book, idx) => {
             const olid = book?.seed[0]?.split("/")[2];
-            (olid) ? <BookData bibkey={"OLID:" + olid}/> : null
+            return (olid) ? <BookData key={idx} bibkey={"OLID:" + olid} crop={true}/> : null;
         })}
         </>
       );
