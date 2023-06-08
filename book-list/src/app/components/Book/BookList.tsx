@@ -2,6 +2,7 @@ import React, { useContext, ReactElement } from "react";
 import { useState, useEffect } from "react";
 import { BookDataSearchProps, BookDataSearchApiResponse, BookDataSearchResponse } from "./models";
 import { BookData } from "./BookData";
+import fetch from "cross-fetch";
 
 ("use-client");
 
