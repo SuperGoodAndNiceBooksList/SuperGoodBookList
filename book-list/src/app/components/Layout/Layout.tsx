@@ -8,7 +8,7 @@ const Layout = ({children}: any) => {
     return (<>
     <Navigation/>
         <main>{children}</main>
-    <footer>SuperNiceAndGoodFooter</footer>
+    <footer className="flex justify-center border-t-2">SuperNiceAndGoodFooter</footer>
     </>);
 }
 

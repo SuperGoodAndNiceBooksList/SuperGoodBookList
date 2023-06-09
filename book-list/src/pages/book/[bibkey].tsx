@@ -1,8 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { BookData } from "@/app/components/Book/BookData";
-import { Navigation } from "@/app/components/Navigation/Navigation";
 import '../../app/globals.css';
+import { Layout } from "@/app/components/Layout/Layout";
 
 ("use-client");
 
@@ -13,8 +13,9 @@ export default function Page() {
         bibkey=router.query.bibkey;
     }
     return (<>
-    <Navigation/>
+    <Layout>
     <BookData bibkey={bibkey} subjectsLimit={20} />
+    </Layout>
     </>
     );
 }
