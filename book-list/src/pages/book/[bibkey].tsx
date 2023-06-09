@@ -2,6 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 import { BookData } from "@/app/components/Book/BookData";
 import { Navigation } from "@/app/components/Navigation/Navigation";
+import '../../app/globals.css';
+
+("use-client");
 
 export default function Page() {
     const router = useRouter();

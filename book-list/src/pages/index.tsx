@@ -1,7 +1,10 @@
 import { BookData } from "@/app/components/Book/BookData";
 import { BookISBN } from "../app/components/Book/models";
 import { BookList } from "@/app/components/Book/BookList";
-import { Navigation } from "@/app/components/Navigation/Navigation";
+import { Layout } from "@/app/components/Layout/Layout";
+import "../app/globals.css";
+
+("use-client");
 
 export default function Home() {
   //todo: call subjects API with random subject, or call search API with random term
@@ -16,13 +19,14 @@ export default function Home() {
 
   return (
     <>
-      <Navigation/>
-      <div>
-        {books.map((book, i) => (
-          <BookData bibkey={book.bibkey} crop={true} key={i} />
-        ))}
-      </div>
-      <BookList search={"broccoli"} />
+      <Layout>
+        <div>
+          {books.map((book, i) => (
+            <BookData bibkey={book.bibkey} crop={true} key={i} />
+          ))}
+        </div>
+        <BookList search={"broccoli"} />
+      </Layout>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { BookDataSearchProps, BookDataSearchApiResponse, BookDataSearchResponse } from "./models";
 import { BookData } from "./BookData";
 import fetch from "cross-fetch";
+import "../../globals.css";
 
 ("use-client");
 
@@ -25,10 +26,12 @@ const BookList = ({search}: BookDataSearchProps) => {
 
       return (
         <>
+        <div className="flex flex-row flex-wrap mx:auto">
         {works.map((book, idx) => {
             const olid = book?.seed[0]?.split("/")[2];
             return (olid) ? <BookData key={idx} bibkey={"OLID:" + olid} crop={true}/> : null;
         })}
+        </div>
         </>
       );
 
