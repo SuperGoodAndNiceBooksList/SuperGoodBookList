@@ -4,6 +4,7 @@ import { BookDataBooksApiResponse, BookDataBooksResponse, BookDataProps } from "
 import Image from "next/image";
 import Link from "next/link";
 import fetch from "cross-fetch";
+import "../../globals.css";
 
 ("use-client");
 
@@ -41,7 +42,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
   const showDetails = () => {
     let subjects = bookData?.subjects; 
     if (subjectsLimit) {
-      subjects = bookData?.subjects.splice(0,subjectsLimit);
+      subjects = bookData?.subjects?.splice(0,subjectsLimit);
     };
     if (!crop && subjects) {
       return (
@@ -93,7 +94,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
       );
     } else {
       return (
-        <Link href={"/book"+bookData?.key.substring(6)} >
+        <Link href={"/book"+bookData?.key.substring(6)}>
           <Title/>
           <BookCover />
         </Link>
@@ -105,7 +106,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
   //TODO: add tailwind styling to book details
   return (
     <>
-      <article className="flex">
+      <article>
         <TitleAndCover />
        { showDetails() }
       </article>

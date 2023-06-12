@@ -1,6 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { BookData } from "@/app/components/Book/BookData";
+import '../../app/globals.css';
+import { Layout } from "@/app/components/Layout/Layout";
+
+("use-client");
 
 export default function Page() {
     const router = useRouter();
@@ -8,5 +12,10 @@ export default function Page() {
     if (typeof router.query.bibkey === "string"){
         bibkey=router.query.bibkey;
     }
-    return <BookData bibkey={bibkey} subjectsLimit={20} />
+    return (<>
+    <Layout>
+    <BookData bibkey={bibkey} subjectsLimit={20} />
+    </Layout>
+    </>
+    );
 }
