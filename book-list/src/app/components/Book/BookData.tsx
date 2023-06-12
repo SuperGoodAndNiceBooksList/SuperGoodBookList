@@ -58,6 +58,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
     }
   };
 
+
   const BookCover = () => {
     let imageProps = {
       imageSrc: "/loading.gif",
@@ -74,7 +75,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
     
     return(
       <Image
-        src={imageProps.imageSrc}
+        src={imageProps.imageSrc ? imageProps.imageSrc : "/placeHolder.jpg"}
         alt="Book Cover Preview"
         priority={true}
         className=""

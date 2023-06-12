@@ -10,7 +10,7 @@ import "../../globals.css";
 const BookList = ({search}: BookDataSearchProps) => {
     const [works, setWorks] = useState<BookDataSearchResponse[]>();
     const query = (search.includes(" ")) ? search.split(" ").join("+") : search;
-    const url: string = `https://openlibrary.org/search.json?q=${query}&limit=10`;
+    const url: string = `https://openlibrary.org/search.json?q=${query}&limit=20`;
 
     const retrieve = async () => {
         const res: Response = await fetch(url) as Response;
@@ -26,9 +26,10 @@ const BookList = ({search}: BookDataSearchProps) => {
 
       return (
         <>
-        <div className="flex flex-row flex-wrap mx:auto">
+        <div className="grid grid-cols-4">
         {works.map((book, idx) => {
             const olid = book?.seed[0]?.split("/")[2];
+            console.log("works is: ", works);
             return (olid) ? <BookData key={idx} bibkey={"OLID:" + olid} crop={true}/> : null;
         })}
         </div>
