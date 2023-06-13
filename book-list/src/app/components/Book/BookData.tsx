@@ -46,14 +46,7 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData }: BookDataProps
 
   const removeFromFavorites = (bookData: any) => {
     if (favorites && favorites.includes(bookData)) {
-      let newFavorites = [...favorites];
-      console.log(newFavorites);
-      newFavorites = newFavorites.filter((item)=>{ 
-        item != bookData;
-      })
-      console.log(newFavorites);
-      setFavorites([...newFavorites]);
-      console.log(favorites);
+      setFavorites(favorites.filter(item=>item!=bookData));
     }
   };
 
