@@ -10,7 +10,6 @@ import "../../globals.css";
 
 const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
   const [bookData, setBookData] = useState<BookDataBooksResponse>();
-  const [loading, setLoading] = useState(true);
 
   // isbn format should be "ISBN:#########" ex: ISBN:9780980200447
   // olid should be "OLID:OL######"" ex: OLID:OL22853304M
@@ -19,10 +18,9 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
   const retrieve = async () => {
     const res: Response = await fetch(url) as Response;
     const data: BookDataBooksApiResponse = await res.json();
-    console.log("bookdata is: ", data);
-    console.log("bibkey is: ", data[bibkey])
+    // console.log("bookdata is: ", data);
+    // console.log("bibkey is: ", data[bibkey])
     setBookData(data[bibkey]);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -30,13 +28,10 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
   }, []);
 
   const Title = ():ReactElement => {
-    if(loading){
-      return (<h3>Loading...</h3>);
-    }
-    return (<>
+    return (<div className="flex flex-col justify-center" >
       <h3>{bookData?.title}</h3>
       <p>{bookData?.by_statement}</p>
-      </>);
+      </div>);
   }
   //todo: add links to each subject for a genre page
   const showDetails = () => {
@@ -66,7 +61,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
       width: 100,
     }
     
-    if(!loading && bookData) {
+    if(bookData) {
       //temp fix for books without covers
       imageProps.imageSrc = (crop) ? bookData.cover?.medium : bookData.cover?.large;
       imageProps.height = (crop) ? 150 : 800;
@@ -79,6 +74,8 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
         alt="Book Cover Preview"
         priority={true}
         className=""
+        blurDataURL="/loading.gif"
+        placeholder="blur"
         height={imageProps.height}
         width={imageProps.width}
       />
@@ -95,10 +92,12 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
       );
     } else {
       return (
+        <>
         <Link href={"/book"+bookData?.key.substring(6)}>
           <Title/>
           <BookCover />
         </Link>
+        </>
       );
     }
   }
@@ -107,7 +106,7 @@ const BookData = ({bibkey, crop, subjectsLimit}: BookDataProps) => {
   //TODO: add tailwind styling to book details
   return (
     <>
-      <article>
+      <article className="border border-grey-500 flex flex-col content-center p-8">
         <TitleAndCover />
        { showDetails() }
       </article>
