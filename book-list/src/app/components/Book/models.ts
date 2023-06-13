@@ -5,7 +5,7 @@ export interface BookDataProps {
 }
 
 export interface BookDataSearchProps{
-  search: string;
+  search?: string | null;
 }
 
 export interface BookDataBooksApiResponse {
