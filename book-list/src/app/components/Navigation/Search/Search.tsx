@@ -28,7 +28,7 @@ export function Search () {
                 >
                     Search for a book
                     <input
-                        className="flex flex-auto mx-5 text-black pl-2 pr-2"
+                        className="flex flex-auto mx-5 text-black pl-1 pr-1"
                         name="Search"
                         id="Search"
                         autoFocus={true}

@@ -2,6 +2,7 @@ export interface BookDataProps {
   bibkey: string;
   crop?: boolean;
   subjectsLimit?: number;
+  preFetchedData?: BookDataBooksResponse;
 }
 
 export interface BookDataSearchProps{
