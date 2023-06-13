@@ -1,11 +1,9 @@
 'use-client'
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import { SearchContext } from "@/context/Context";
 
 export function Search () {
-    const searchParams = useSearchParams();
     const router = useRouter();
     const [query, setQuery] = useState<string>();
     const [term, setTerm] = useContext(SearchContext);
@@ -30,7 +28,7 @@ export function Search () {
                 >
                     Search for a book
                     <input
-                        className="flex flex-auto mx-5 text-black"
+                        className="flex flex-auto mx-5 text-black pl-2 pr-2"
                         name="Search"
                         id="Search"
                         autoFocus={true}

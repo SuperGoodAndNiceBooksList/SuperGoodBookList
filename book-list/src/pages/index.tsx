@@ -12,7 +12,11 @@ import { SearchContext } from "@/context/Context";
 export default function Home() {
   const searchParam = useSearchParams();
   const router = useRouter();
-  const [term, setTerm] = useState<string | null>();
+  const [term, setTerm] = useState<string | null | undefined>();
+
+  useEffect(()=>{
+    if (!term && searchParam?.has('search')) setTerm(searchParam.get('search'));
+  }, [router])
 
   //todo: call subjects API with random subject, or call search API with random term
   return (
