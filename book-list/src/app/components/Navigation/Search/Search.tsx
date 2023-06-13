@@ -8,6 +8,7 @@ export function Search () {
     const [query, setQuery] = useState<string>();
     const [term, setTerm] = useContext(SearchContext);
     const pathname = usePathname()
+    const disabled = (pathname == "/favorites");
     
     function updateQuery(event:React.FormEvent<HTMLButtonElement>){
         event.preventDefault()
@@ -35,6 +36,7 @@ export function Search () {
                         maxLength={200}
                         value={query}
                         onChange={(e:React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+                        disabled={disabled}
                     />
                 </label>
                 <label>

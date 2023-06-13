@@ -36,11 +36,9 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData }: BookDataProps
   const addToFavorites = (bookData: any) => {
     if (favorites && !favorites.includes(bookData)) {
       setFavorites([...favorites, bookData]);
-      console.log(favorites);
     }
     if (!favorites){
       setFavorites([bookData]);
-      console.log(favorites);
     }
   };
 
@@ -52,7 +50,7 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData }: BookDataProps
 
   useEffect(() => {
       retrieve();
-  }, []);
+  }, [favorites]);
 
   const Title = (): ReactElement => {
     return (
