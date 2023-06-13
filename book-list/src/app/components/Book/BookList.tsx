@@ -12,18 +12,22 @@ import { useSearchParams } from "next/navigation";
 const BookList = ({search}: BookDataSearchProps) => {
 
     const [works, setWorks] = useState<BookDataSearchResponse[]>();
-    const query = (search.includes(" ")) ? search.split(" ").join("+") : search;
-    const url: string = `https://openlibrary.org/search.json?q=${query}&limit=20`;
 
     const retrieve = async () => {
-        const res: Response = await fetch(url) as Response;
-        const data: BookDataSearchApiResponse = await res.json();
-        setWorks(data?.docs);
+        if (search){
+          const query = (search.includes(" ")) ? search.split(" ").join("+") : search;
+          const url: string = `https://openlibrary.org/search.json?q=${query}&limit=20`;
+          const res: Response = await fetch(url) as Response;
+          const data: BookDataSearchApiResponse = await res.json();
+          setWorks(data?.docs);
+        } else {
+          setWorks(undefined);
+        }
       };
     
       useEffect(() => {
         retrieve();
-      }, []);
+      }, [search]);
     
       if (works === undefined) return null;
 

@@ -1,13 +1,12 @@
 'use-client'
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { SearchContext } from "@/context/Context";
 
 export function Search () {
-    const searchParams = useSearchParams();
-    const term = searchParams?.has('search') ? searchParams.get('search') : "";
     const router = useRouter();
-    const [query, setQuery] = useState("")
+    const [query, setQuery] = useState<string>();
+    const [term, setTerm] = useContext(SearchContext);
     const pathname = usePathname()
     
     function updateQuery(event:React.FormEvent<HTMLButtonElement>){
@@ -16,14 +15,9 @@ export function Search () {
         //     pathname: '/',
         //     query: {search: encodeURI(query)}
         // });
-        router.push(pathname + '?search=' + encodeURI(query))
+        router.push(pathname + '?search=' + encodeURI(query as string))
+        setTerm(query);
     };
-
-    useEffect(() => {
-        if(term){
-            console.log('{search} term is',term);
-        }
-    },[term]);
 
     return(<>
         <div className="flex m-10 px-5">
@@ -34,7 +28,7 @@ export function Search () {
                 >
                     Search for a book
                     <input
-                        className="flex flex-auto mx-5 text-black"
+                        className="flex flex-auto mx-5 text-black pl-1 pr-1"
                         name="Search"
                         id="Search"
                         autoFocus={true}
