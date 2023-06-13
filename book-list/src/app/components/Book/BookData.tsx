@@ -13,7 +13,7 @@ import { FavoritesContext } from "@/context/Context";
 
 ("use-client");
 
-const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData }: BookDataProps) => {
+const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }: BookDataProps) => {
   const [bookData, setBookData] = useState<BookDataBooksResponse>();
   const [favorites, setFavorites] = useContext(FavoritesContext);
 
@@ -34,23 +34,23 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData }: BookDataProps
   };
 
   const addToFavorites = (bookData: any) => {
-    if (favorites && !favorites.includes(bookData)) {
-      setFavorites([...favorites, bookData]);
+    if (favorites && favorites.list && !favorites?.list?.includes(bookData)) {
+      setFavorites({list:[...favorites.list, bookData]});
     }
-    if (!favorites){
-      setFavorites([bookData]);
+    if (!favorites || !favorites.list){
+      setFavorites({list:[bookData]});
     }
   };
 
   const removeFromFavorites = (bookData: any) => {
-    if (favorites && favorites.includes(bookData)) {
-      setFavorites(favorites.filter(item=>item!=bookData));
+    if (favorites && favorites.list && favorites?.list?.includes(bookData)) {
+      setFavorites({list:favorites.list.filter(item=>item!=bookData)});
     }
   };
 
   useEffect(() => {
       retrieve();
-  }, [favorites]);
+  }, [favorites?.list, favorites?.filterTerm, filteredList]);
 
   const Title = (): ReactElement => {
     return (
