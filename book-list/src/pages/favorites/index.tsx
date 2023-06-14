@@ -18,9 +18,8 @@ export default function Page() {
       favorites?.list?.filter(
         (book) =>
           book.title.toLowerCase().includes(filterTerm.toLowerCase()) ||
-          book.subjects?.forEach(
-            (subject) =>
-              subject.name.toLowerCase().includes(filterTerm.toLowerCase())
+          book.subjects?.forEach((subject) =>
+            subject.name.toLowerCase().includes(filterTerm.toLowerCase())
           ) ||
           book.by_statement?.toLowerCase().includes(filterTerm.toLowerCase())
       )
@@ -30,7 +29,9 @@ export default function Page() {
   if (!filteredList)
     return (
       <>
-        <Layout>User has no favorites.</Layout>
+        <Layout>
+          <p className="flex justify-center mx:auto pb-8">User has no favorites.</p>
+        </Layout>
       </>
     );
 

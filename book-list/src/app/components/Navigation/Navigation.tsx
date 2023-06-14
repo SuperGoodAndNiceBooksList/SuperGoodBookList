@@ -10,7 +10,7 @@ const Navigation = () => {
     <>
       <nav className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto border-b-2">
         <Link href="/">
-          <h1>SuperGoodAndNiceBooksList</h1>
+          <h1 className="text-xl">SuperGoodAndNiceBooksList</h1>
         </Link>
         <div>
           <ul className="flex flex-col md:flex-row md:space-x-8">

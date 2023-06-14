@@ -7,10 +7,12 @@ import '../../globals.css'
 
 const Layout = ({children}: any) => {
     return (<>
+    <div className="px-20">
     <Navigation/>
     <Search />
         <main>{children}</main>
     <footer className="flex justify-center border-t-2">SuperNiceAndGoodFooter</footer>
+    </div>
     </>);
 }
 
