@@ -1,13 +1,15 @@
 'use-client'
 import React, { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { SearchContext } from "@/context/Context";
+import { FavoritesContext, SearchContext } from "@/context/Context";
 
 export function Search () {
     const router = useRouter();
     const [query, setQuery] = useState<string>();
     const [term, setTerm] = useContext(SearchContext);
+    const [favorites, setFavorites] = useContext(FavoritesContext);
     const pathname = usePathname()
+    const disabled = (pathname == "/favorites");
     
     function updateQuery(event:React.FormEvent<HTMLButtonElement>){
         event.preventDefault()
@@ -16,7 +18,11 @@ export function Search () {
         //     query: {search: encodeURI(query)}
         // });
         router.push(pathname + '?search=' + encodeURI(query as string))
-        setTerm(query);
+        if (pathname == "/favorites") {
+            setFavorites({list: favorites?.list, filterTerm: query})
+        }else{
+            setTerm(query);
+        }
     };
 
     return(<>

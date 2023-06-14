@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { BookData } from "@/app/components/Book/BookData";
 import "../../app/globals.css";
@@ -10,12 +10,28 @@ import { FavoritesContext } from "@/context/Context";
 export default function Page() {
   const router = useRouter();
   const [favorites, setFavorites] = useContext(FavoritesContext);
-  console.log(favorites);
+  const [filteredList, setFilteredList] = useState(favorites?.list);
 
-  if (!favorites)
+  useEffect(() => {
+    const filterTerm = favorites?.filterTerm ? favorites.filterTerm : "";
+    setFilteredList(
+      favorites?.list?.filter(
+        (book) =>
+          book.title.toLowerCase().includes(filterTerm.toLowerCase()) ||
+          book.subjects?.forEach((subject) =>
+            subject.name.toLowerCase().includes(filterTerm.toLowerCase())
+          ) ||
+          book.by_statement?.toLowerCase().includes(filterTerm.toLowerCase())
+      )
+    );
+  }, [favorites?.filterTerm]);
+
+  if (!filteredList)
     return (
       <>
-        <Layout>User has no favorites.</Layout>
+        <Layout>
+          <p className="flex justify-center mx:auto pb-8">User has no favorites.</p>
+        </Layout>
       </>
     );
 
@@ -23,8 +39,14 @@ export default function Page() {
     <>
       <Layout>
         <div className="grid grid-cols-6 gap-5">
-          {favorites.map((bookData, idx) => (
-            <BookData key={idx} bibkey={"prefetched"} crop={true} preFetchedData={bookData}/>
+          {filteredList.map((bookData, idx) => (
+            <BookData
+              key={idx}
+              bibkey={"prefetched"}
+              crop={true}
+              preFetchedData={bookData}
+              filteredList={filteredList}
+            />
           ))}
         </div>
       </Layout>
