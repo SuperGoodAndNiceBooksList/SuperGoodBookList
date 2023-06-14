@@ -2,10 +2,12 @@ export interface BookDataProps {
   bibkey: string;
   crop?: boolean;
   subjectsLimit?: number;
+  preFetchedData?: BookDataBooksResponse;
+  filteredList?: BookDataBooksResponse[];
 }
 
 export interface BookDataSearchProps{
-  search: string;
+  search?: string | null;
 }
 
 export interface BookDataBooksApiResponse {
@@ -87,4 +89,9 @@ export interface BookDataSearchApiResponse {
 
 export interface BookISBN {
   bibkey: string,
+}
+
+export interface Favorites {
+  list?: BookDataBooksResponse[];
+  filterTerm?: string;
 }
