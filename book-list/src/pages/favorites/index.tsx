@@ -24,7 +24,7 @@ export default function Page() {
           book.by_statement?.toLowerCase().includes(filterTerm.toLowerCase())
       )
     );
-  }, [favorites?.filterTerm]);
+  }, [favorites?.filterTerm, favorites?.list]);
 
   if (!filteredList)
     return (
