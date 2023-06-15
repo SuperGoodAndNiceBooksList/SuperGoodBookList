@@ -68,7 +68,7 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
     }
     if (!crop && subjects) {
       return (
-        <div className="">
+        <div className="border-1 p-2">
           <h4 className="">Subjects:</h4>
           <ul>
             {subjects.map((subject, i) => (
@@ -162,7 +162,7 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
   //TODO: add tailwind styling to book details
   return (
     <>
-      <article className="border border-grey-500 flex flex-col content-center p-8">
+      <article className="border border-grey-500 flex flex-col content-center p-8 shadow-md">
         <TitleAndCover />
         {showDetails()}
       </article>
