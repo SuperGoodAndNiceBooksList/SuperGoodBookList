@@ -13,9 +13,9 @@ export default function Page() {
         bibkey=router.query.bibkey;
     }
     return (<>
-    <Layout>
+    <div className="flex justify-center">
     <BookData bibkey={bibkey} subjectsLimit={20} />
-    </Layout>
+    </div>
     </>
     );
 }

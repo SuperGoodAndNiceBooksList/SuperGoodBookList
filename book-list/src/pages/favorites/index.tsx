@@ -29,15 +29,12 @@ export default function Page() {
   if (!filteredList)
     return (
       <>
-        <Layout>
           <p className="flex justify-center mx:auto pb-8">User has no favorites.</p>
-        </Layout>
       </>
     );
 
   return (
     <>
-      <Layout>
         <div className="grid grid-cols-6 gap-5">
           {filteredList.map((bookData, idx) => (
             <BookData
@@ -49,7 +46,6 @@ export default function Page() {
             />
           ))}
         </div>
-      </Layout>
     </>
   );
 }

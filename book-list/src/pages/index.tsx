@@ -1,5 +1,5 @@
 "use-client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BookData } from "@/app/components/Book/BookData";
 import { BookDataBooksResponse, BookISBN } from "../app/components/Book/models";
 import { BookList } from "@/app/components/Book/BookList";
@@ -12,7 +12,7 @@ import { SearchContext, FavoritesContext } from "@/context/Context";
 export default function Home() {
   const searchParam = useSearchParams();
   const router = useRouter();
-  const [term, setTerm] = useState<string | null | undefined>();
+  const [term, setTerm] = useContext(SearchContext);
 
   useEffect(()=>{
     if (!term && searchParam?.has('search')) setTerm(searchParam.get('search'));
@@ -22,11 +22,9 @@ export default function Home() {
   return (
     <>
       <SearchContext.Provider value={[term, setTerm]} >
-        <Layout>
           <div>
             <BookList key={router.asPath} search={term} />
           </div>
-        </Layout>
       </SearchContext.Provider>
     </>
   );

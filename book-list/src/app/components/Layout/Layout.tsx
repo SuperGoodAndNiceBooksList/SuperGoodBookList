@@ -11,7 +11,7 @@ const Layout = ({children}: any) => {
     <Navigation/>
     <Search />
         <main>{children}</main>
-    <footer className="flex justify-center border-t-2">SuperNiceAndGoodFooter</footer>
+    <footer className="flex justify-center border-t-2 mt-12">SuperNiceAndGoodFooter</footer>
     </div>
     </>);
 }
