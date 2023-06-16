@@ -14,6 +14,7 @@ import { versions } from "process";
 
 ("use-client");
 
+
 const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }: BookDataProps) => {
   const [bookData, setBookData] = useState<BookDataBooksResponse>();
   const [favorites, setFavorites] = useContext(FavoritesContext);
@@ -33,7 +34,12 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
       setBookData(preFetchedData);
     }
   };
-  const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
+
+  useEffect(() => {
+    retrieve();
+}, [favorites?.list, favorites?.filterTerm, filteredList]);
+  
+const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
     let result = false;
 
     if(!favorites || !favorites.list || !bookData){
@@ -42,7 +48,7 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
 
       favorites.list.map((favorite) => {
         if(favorite.key === bookData.key){
-          result = true;
+          return true;
         };
       });
     return result;
@@ -77,9 +83,17 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
     }
   };
 
-  useEffect(() => {
-      retrieve();
-  }, [favorites?.list, favorites?.filterTerm, filteredList]);
+
+
+  const FavoritesButton = (bookData: BookDataBooksResponse | undefined) => {
+    
+    const inFavorites = favoritesHasBook(bookData);
+    return(
+      <Button>
+        {}
+      </Button>
+    );
+  }
 
   const Title = (): ReactElement => {
     return (
