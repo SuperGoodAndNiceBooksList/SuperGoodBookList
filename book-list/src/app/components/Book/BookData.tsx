@@ -10,6 +10,7 @@ import Link from "next/link";
 import fetch from "cross-fetch";
 import "../../globals.css";
 import { FavoritesContext } from "@/context/Context";
+import { versions } from "process";
 
 ("use-client");
 
@@ -32,19 +33,47 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
       setBookData(preFetchedData);
     }
   };
+  const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
+    let result = false;
 
-  const addToFavorites = (bookData: any) => {
-    if (favorites && favorites.list && !favorites?.list?.includes(bookData)) {
-      setFavorites({list:[...favorites.list, bookData]});
+    if(!favorites || !favorites.list || !bookData){
+      return result;
     }
-    if (!favorites || !favorites.list){
+
+      favorites.list.map((favorite) => {
+        if(favorite.key === bookData.key){
+          result = true;
+        };
+      });
+    return result;
+  }
+  const filterFavorites = (bookData: BookDataBooksResponse | undefined) => {
+    if(!favorites || !favorites.list || !bookData){
+      return;
+    }
+    let copyFavoritesList = favorites.list;
+    console.log("copy fav is",copyFavoritesList);
+    copyFavoritesList = copyFavoritesList.filter((favorite) => {return favorite.key !== bookData.key});
+    console.log("copy fav is now",copyFavoritesList)
+    setFavorites({...favorites, list:[...copyFavoritesList]});
+  }
+
+  const addToFavorites = (bookData: BookDataBooksResponse | undefined) => {
+    if(!bookData){
+      return;
+    }
+    if(!favorites || !favorites.list){
       setFavorites({list:[bookData]});
+      return;
     }
+    if (!favoritesHasBook(bookData)) {
+      setFavorites({...favorites, list:[...favorites.list, bookData]});
+    } 
   };
 
-  const removeFromFavorites = (bookData: any) => {
-    if (favorites && favorites.list && favorites?.list?.includes(bookData)) {
-      setFavorites({list:favorites.list.filter(item=>item!=bookData)});
+  const removeFromFavorites = (bookData: BookDataBooksResponse | undefined) => {
+    if (favoritesHasBook(bookData)) {
+      filterFavorites(bookData);
     }
   };
 
