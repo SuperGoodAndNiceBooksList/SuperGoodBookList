@@ -33,11 +33,12 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
     } else{
       setBookData(preFetchedData);
     }
+    console.log("favorites are",favorites?.list);
   };
 
   useEffect(() => {
     retrieve();
-}, [favorites?.list, favorites?.filterTerm, filteredList]);
+}, [favorites?.list, favorites?.filterTerm, filteredList, favorites]);
   
 const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
     let result = false;
@@ -48,7 +49,8 @@ const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
 
       favorites.list.map((favorite) => {
         if(favorite.key === bookData.key){
-          return true;
+          result = true;
+          return;
         };
       });
     return result;
@@ -58,9 +60,7 @@ const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
       return;
     }
     let copyFavoritesList = favorites.list;
-    console.log("copy fav is",copyFavoritesList);
     copyFavoritesList = copyFavoritesList.filter((favorite) => {return favorite.key !== bookData.key});
-    console.log("copy fav is now",copyFavoritesList)
     setFavorites({...favorites, list:[...copyFavoritesList]});
   }
 
@@ -85,21 +85,27 @@ const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
 
 
 
-  const FavoritesButton = (bookData: BookDataBooksResponse | undefined) => {
-    
-    const inFavorites = favoritesHasBook(bookData);
+  const FavoritesButton = () => {
+    let bookInFavs = favoritesHasBook(bookData);
     return(
-      <Button>
-        {}
-      </Button>
+      <button
+        className="bg-mossGreen-default hover:bg-mossGreen-dark active:bg-mossGreen-light m-2 text-white font-bold py-2 px-4 rounded-full"
+        onClick={ () => {bookInFavs ? removeFromFavorites(bookData) : addToFavorites(bookData)}}
+      >
+        {bookInFavs ? "Remove from Favorites" : "Add to Favorites"}
+      </button>
     );
   }
 
   const Title = (): ReactElement => {
     return (
-      <div className="flex flex-col justify-center">
-        <h3>{bookData?.title}</h3>
-        <p>{bookData?.by_statement}</p>
+      <div className="m-2">
+        <h3
+          className="m-2"
+        >{bookData?.title}</h3>
+        <p
+          className="m-2"
+        >{bookData?.by_statement}</p>
       </div>
     );
   };
@@ -156,47 +162,27 @@ const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
   const TitleAndCover = () => {
     if (!crop) {
       return (
-        <>
+        <div
+          className="flex flex-col items-center"
+        >
           <Title />
           <BookCover />
-          <button
-            onClick={() => {
-              addToFavorites(bookData);
-            }}
-          >
-            Add to favorites
-          </button>
-          <button
-            onClick={() => {
-              removeFromFavorites(bookData);
-            }}
-          >
-            Remove from favorites
-          </button>
-        </>
+          <FavoritesButton />
+        </div>
       );
     } else {
       return (
-        <>
-          <Link href={"/book" + bookData?.key.substring(6)}>
+        <div
+          className="flex flex-col"
+        >
+          <Link href={"/book" + bookData?.key.substring(6)}
+            className="flex flex-col items-center"
+          >
             <Title />
             <BookCover />
           </Link>
-          <button
-            onClick={() => {
-              addToFavorites(bookData);
-            }}
-          >
-            Add to favorites
-          </button>
-          <button
-            onClick={() => {
-              removeFromFavorites(bookData);
-            }}
-          >
-            Remove from favorites
-          </button>
-        </>
+          <FavoritesButton/>
+        </div>
       );
     }
   };
@@ -205,7 +191,7 @@ const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
   //TODO: add tailwind styling to book details
   return (
     <>
-      <article className="border border-grey-500 flex flex-col content-center p-8 shadow-md">
+      <article className="border border-grey-500 flex flex-col p-8 shadow-md">
         <TitleAndCover />
         {showDetails()}
       </article>
