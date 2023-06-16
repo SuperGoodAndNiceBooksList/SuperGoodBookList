@@ -12,6 +12,17 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        dogWood:'#D9BFBF',
+        taupe:"#7D4E57",
+        night:"#121113",
+        eerieBlack:"#222725",
+        mossGreen: {
+          light: "#9FAB91",
+          default: "#899878",
+          dark: "#707F5E",
+        },
+      },
       boxShadow: {
         'md': '7px 7px 7px -3px rgba(125, 78, 87, 0.4)',
       },
