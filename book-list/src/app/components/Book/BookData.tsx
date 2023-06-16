@@ -10,8 +10,10 @@ import Link from "next/link";
 import fetch from "cross-fetch";
 import "../../globals.css";
 import { FavoritesContext } from "@/context/Context";
+import { versions } from "process";
 
 ("use-client");
+
 
 const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }: BookDataProps) => {
   const [bookData, setBookData] = useState<BookDataBooksResponse>();
@@ -31,32 +33,79 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
     } else{
       setBookData(preFetchedData);
     }
-  };
-
-  const addToFavorites = (bookData: any) => {
-    if (favorites && favorites.list && !favorites?.list?.includes(bookData)) {
-      setFavorites({list:[...favorites.list, bookData]});
-    }
-    if (!favorites || !favorites.list){
-      setFavorites({list:[bookData]});
-    }
-  };
-
-  const removeFromFavorites = (bookData: any) => {
-    if (favorites && favorites.list && favorites?.list?.includes(bookData)) {
-      setFavorites({list:favorites.list.filter(item=>item!=bookData)});
-    }
+    console.log("favorites are",favorites?.list);
   };
 
   useEffect(() => {
-      retrieve();
-  }, [favorites?.list, favorites?.filterTerm, filteredList]);
+    retrieve();
+}, [favorites?.list, favorites?.filterTerm, filteredList, favorites]);
+  
+const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
+    let result = false;
+
+    if(!favorites || !favorites.list || !bookData){
+      return result;
+    }
+
+      favorites.list.map((favorite) => {
+        if(favorite.key === bookData.key){
+          result = true;
+          return;
+        };
+      });
+    return result;
+  }
+  const filterFavorites = (bookData: BookDataBooksResponse | undefined) => {
+    if(!favorites || !favorites.list || !bookData){
+      return;
+    }
+    let copyFavoritesList = favorites.list;
+    copyFavoritesList = copyFavoritesList.filter((favorite) => {return favorite.key !== bookData.key});
+    setFavorites({...favorites, list:[...copyFavoritesList]});
+  }
+
+  const addToFavorites = (bookData: BookDataBooksResponse | undefined) => {
+    if(!bookData){
+      return;
+    }
+    if(!favorites || !favorites.list){
+      setFavorites({list:[bookData]});
+      return;
+    }
+    if (!favoritesHasBook(bookData)) {
+      setFavorites({...favorites, list:[...favorites.list, bookData]});
+    } 
+  };
+
+  const removeFromFavorites = (bookData: BookDataBooksResponse | undefined) => {
+    if (favoritesHasBook(bookData)) {
+      filterFavorites(bookData);
+    }
+  };
+
+
+
+  const FavoritesButton = () => {
+    let bookInFavs = favoritesHasBook(bookData);
+    return(
+      <button
+        className="bg-mossGreen-default hover:bg-mossGreen-dark active:bg-mossGreen-light m-2 text-white font-bold py-2 px-4 rounded-full"
+        onClick={ () => {bookInFavs ? removeFromFavorites(bookData) : addToFavorites(bookData)}}
+      >
+        {bookInFavs ? "Remove from Favorites" : "Add to Favorites"}
+      </button>
+    );
+  }
 
   const Title = (): ReactElement => {
     return (
-      <div className="flex flex-col justify-center">
-        <h3>{bookData?.title}</h3>
-        <p>{bookData?.by_statement}</p>
+      <div className="m-2">
+        <h3
+          className="m-2"
+        >{bookData?.title}</h3>
+        <p
+          className="m-2"
+        >{bookData?.by_statement}</p>
       </div>
     );
   };
@@ -113,47 +162,27 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
   const TitleAndCover = () => {
     if (!crop) {
       return (
-        <>
+        <div
+          className="flex flex-col items-center"
+        >
           <Title />
           <BookCover />
-          <button
-            onClick={() => {
-              addToFavorites(bookData);
-            }}
-          >
-            Add to favorites
-          </button>
-          <button
-            onClick={() => {
-              removeFromFavorites(bookData);
-            }}
-          >
-            Remove from favorites
-          </button>
-        </>
+          <FavoritesButton />
+        </div>
       );
     } else {
       return (
-        <>
-          <Link href={"/book" + bookData?.key.substring(6)}>
+        <div
+          className="flex flex-col"
+        >
+          <Link href={"/book" + bookData?.key.substring(6)}
+            className="flex flex-col items-center"
+          >
             <Title />
             <BookCover />
           </Link>
-          <button
-            onClick={() => {
-              addToFavorites(bookData);
-            }}
-          >
-            Add to favorites
-          </button>
-          <button
-            onClick={() => {
-              removeFromFavorites(bookData);
-            }}
-          >
-            Remove from favorites
-          </button>
-        </>
+          <FavoritesButton/>
+        </div>
       );
     }
   };
@@ -162,7 +191,7 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
   //TODO: add tailwind styling to book details
   return (
     <>
-      <article className="border border-grey-500 flex flex-col content-center p-8 shadow-md">
+      <article className="border border-grey-500 flex flex-col p-8 shadow-md">
         <TitleAndCover />
         {showDetails()}
       </article>
