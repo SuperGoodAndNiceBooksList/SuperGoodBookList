@@ -95,3 +95,7 @@ export interface Favorites {
   list?: BookDataBooksResponse[];
   filterTerm?: string;
 }
+
+export interface Option {
+  selection: string;
+}
