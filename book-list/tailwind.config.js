@@ -13,7 +13,11 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        dogWood:'#D9BFBF',
+        dogWood:{
+          light: '#D9BFBF',
+          default: '#CBA6A6',
+          dark: 'C49C9C',
+        },
         taupe:"#7D4E57",
         night:"#121113",
         eerieBlack:"#222725",
