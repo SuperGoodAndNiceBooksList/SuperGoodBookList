@@ -60,6 +60,7 @@ const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
     }
     let copyFavoritesList = favorites.list;
     copyFavoritesList = copyFavoritesList.filter((favorite) => {return favorite.key !== bookData.key});
+    localStorage.setItem("favorites", `${JSON.stringify(copyFavoritesList)}`);
     setFavorites({...favorites, list:[...copyFavoritesList]});
   }
 
@@ -72,6 +73,7 @@ const favoritesHasBook = (bookData: BookDataBooksResponse | undefined) => {
       return;
     }
     if (!favoritesHasBook(bookData)) {
+      localStorage.setItem("favorites", `${JSON.stringify(favorites.list)}`);
       setFavorites({...favorites, list:[...favorites.list, bookData]});
     } 
   };
