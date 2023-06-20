@@ -1,3 +1,5 @@
+"use-client"
+
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { BookData } from "@/app/components/Book/BookData";
@@ -12,6 +14,13 @@ export default function Page() {
   const [favorites, setFavorites] = useContext(FavoritesContext);
   const [filteredList, setFilteredList] = useState(favorites?.list);
 
+  useEffect(() => {
+    const getFromStorage = (!favorites || !favorites.list || favorites.list.length < 1) && localStorage.getItem("favorites") && JSON.parse(localStorage.getItem("favorites"));
+    if(getFromStorage){
+      const savedFavorites = localStorage.getItem("favorites")
+      setFavorites({filterTerm: "", list: JSON.parse(savedFavorites)})
+    }
+  },[])
   useEffect(() => {
     const filterTerm = favorites?.filterTerm ? favorites.filterTerm : "";
     setFilteredList(

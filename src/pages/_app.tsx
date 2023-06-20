@@ -4,7 +4,7 @@ import { FavoritesContext, OptionContext, SearchContext } from "@/context/Contex
 import React, { useState } from "react";
 
 export default function MyApp({ Component, pageProps }: any) {
-  const [favorites, setFavorites] = useState<Favorites | null | undefined>();
+  const [favorites, setFavorites] = useState<Favorites | null | undefined>({filterTerm:"", list: []});
   const [term, setTerm] = useState<string | null | undefined>("");
   const [option, setOption] = useState<Option>({selection:searchTypes.default});
   return (
