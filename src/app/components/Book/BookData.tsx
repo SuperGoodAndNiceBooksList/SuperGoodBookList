@@ -10,7 +10,6 @@ import Link from "next/link";
 import fetch from "cross-fetch";
 import "../../globals.css";
 import { FavoritesContext } from "@/context/Context";
-import { versions } from "process";
 
 ("use-client");
 
