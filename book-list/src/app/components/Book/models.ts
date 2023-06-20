@@ -96,6 +96,8 @@ export interface Favorites {
   filterTerm?: string;
 }
 
+export type searchTypes = "Title" | "Author" | "Genre" | ""
 export interface Option {
-  selection: string;
+  selection: searchTypes;
 }
+
