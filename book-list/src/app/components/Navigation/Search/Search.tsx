@@ -7,9 +7,9 @@ import path from "path";
 
 export function Search () {
     const router = useRouter();
-    const [query, setQuery] = useState<string>();
-    const [term, setTerm] = useContext(SearchContext);
-    const [option,setOption] = useContext(OptionContext);
+    const [query, setQuery] = useState<string>("");
+    const [term,setTerm] = useContext(SearchContext);
+    const [option] = useContext(OptionContext);
     const [favorites, setFavorites] = useContext(FavoritesContext);
     const pathname = usePathname();
     
@@ -19,23 +19,25 @@ export function Search () {
          Author: "Search by Author",
          Genre: "Search by Genre",
          Favorites: "Search your Favorites",
+         Default: "Search",
        };
       if(pathname === "/favorites"){
          return searchText.Favorites
       } else if (option && option.selection){
          return searchText[option.selection];
       }
-      return searchText.Title
+      return searchText.Default;
       
     };
 
     function updateQuery(event:React.FormEvent<HTMLButtonElement>){
         event.preventDefault()
-        router.push(pathname + '?search=' + encodeURI(query as string))
         if (pathname == "/favorites") {
             setFavorites({list: favorites?.list, filterTerm: query})
+            router.push(pathname + '?search=' + encodeURI(query as string));
         }else{
-            setTerm(query);
+            query ? setTerm(query) : null;
+            router.push("/?search=" + encodeURI(query as string));
         }
     };
 

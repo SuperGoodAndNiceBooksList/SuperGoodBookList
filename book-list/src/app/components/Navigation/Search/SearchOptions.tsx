@@ -12,10 +12,12 @@ export function SearchOptions () {
         };
         const [active, setActive] = useState(option && option.selection ? name === option.selection : false);
         const handleClick = () => {
-            if(!active){
+            if(active){
+                setOption({selection: ""})
+            }else{
                 setOption({selection: name})
-                setActive(true)
             };
+            setActive(!active);
         };
         const sharedBG = "hover:bg-dogWood-light active:dogWood-dark"
         const sharedPadding = "py-2 px-4"
