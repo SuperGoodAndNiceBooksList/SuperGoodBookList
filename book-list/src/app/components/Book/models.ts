@@ -79,12 +79,14 @@ export interface BookDataSearchResponse {
   ia: string[];
   author_key: string[];
   public_scan_b: boolean;
+  cover_edition_key: string;
 }
 
 export interface BookDataSearchApiResponse {
   start: number;
   num_found: number;
   docs: BookDataSearchResponse[];
+  works: BookDataSearchResponse[];
 }
 
 export interface BookISBN {
@@ -96,7 +98,12 @@ export interface Favorites {
   filterTerm?: string;
 }
 
-export type searchTypes = "Title" | "Author" | "Genre" | ""
+export enum searchTypes {
+  title = "Title",
+  author = "Author",
+  genre = "Genre",
+  default = ""}
+  
 export interface Option {
   selection: searchTypes;
 }
