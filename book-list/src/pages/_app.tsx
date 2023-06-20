@@ -1,4 +1,4 @@
-import { BookDataBooksResponse, Favorites, Option } from "@/app/components/Book/models";
+import { BookDataBooksResponse, Favorites, Option, searchTypes } from "@/app/components/Book/models";
 import { Layout } from "@/app/components/Layout/Layout";
 import { FavoritesContext, OptionContext, SearchContext } from "@/context/Context";
 import React, { useState } from "react";
@@ -6,7 +6,7 @@ import React, { useState } from "react";
 export default function MyApp({ Component, pageProps }: any) {
   const [favorites, setFavorites] = useState<Favorites | null | undefined>();
   const [term, setTerm] = useState<string | null | undefined>("");
-  const [option, setOption] = useState<Option>({selection:""});
+  const [option, setOption] = useState<Option>({selection:searchTypes.default});
   return (
     <>
       <FavoritesContext.Provider value={[favorites, setFavorites]}>

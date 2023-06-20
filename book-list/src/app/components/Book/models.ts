@@ -98,7 +98,12 @@ export interface Favorites {
   filterTerm?: string;
 }
 
-export type searchTypes = "Title" | "Author" | "Genre" | ""
+export enum searchTypes {
+  title = "Title",
+  author = "Author",
+  genre = "Genre",
+  default = ""}
+  
 export interface Option {
   selection: searchTypes;
 }
