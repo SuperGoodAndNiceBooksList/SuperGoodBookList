@@ -48,8 +48,6 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
-      - name: Cd into book-list
-        run: cd book-list
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
