@@ -7,12 +7,13 @@ import { Layout } from "@/app/components/Layout/Layout";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import "../app/globals.css";
-import { SearchContext, FavoritesContext } from "@/context/Context";
+import { SearchContext, FavoritesContext, OptionContext } from "@/context/Context";
 
 export default function Home() {
   const searchParam = useSearchParams();
   const router = useRouter();
   const [term, setTerm] = useContext(SearchContext);
+  const [option, setOption] = useContext(OptionContext);
 
   useEffect(()=>{
     if (!term && searchParam?.has('search')) setTerm(searchParam.get('search'));
@@ -22,9 +23,11 @@ export default function Home() {
   return (
     <>
       <SearchContext.Provider value={[term, setTerm]} >
+        <OptionContext.Provider value = {[option,setOption]}>
           <div>
             <BookList key={router.asPath} search={term} />
           </div>
+          </OptionContext.Provider>
       </SearchContext.Provider>
     </>
   );

@@ -95,3 +95,9 @@ export interface Favorites {
   list?: BookDataBooksResponse[];
   filterTerm?: string;
 }
+
+export type searchTypes = "Title" | "Author" | "Genre" | ""
+export interface Option {
+  selection: searchTypes;
+}
+

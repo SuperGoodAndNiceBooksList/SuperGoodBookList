@@ -33,7 +33,7 @@ const BookData = ({ bibkey, crop, subjectsLimit, preFetchedData, filteredList }:
     } else{
       setBookData(preFetchedData);
     }
-    console.log("favorites are",favorites?.list);
+    //console.log("favorites are",favorites?.list);
   };
 
   useEffect(() => {
